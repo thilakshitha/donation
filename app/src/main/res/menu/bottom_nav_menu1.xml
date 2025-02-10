@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="home"
+        android:icon="@drawable/home"
+        android:id="@+id/nav_home"
+        android:iconTint="@color/nav_item_color"
+        />
+
+    <item android:title="feed"
+        android:id="@+id/nav_feed"
+        android:icon="@drawable/feed"
+        android:iconTint="@color/nav_item_color"/>
+
+    <item android:title="create req"
+        android:icon="@drawable/plus"
+        android:id="@+id/nav_req"
+        android:iconTint="@color/nav_item_color"/>
+
+
+    <item android:title="messages"
+        android:icon="@drawable/message"
+        android:id="@+id/nav_message"
+        android:iconTint="@color/nav_item_color"/>
+
+
+
+
+
+</menu>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="home"
+        android:icon="@drawable/home"
+        android:id="@+id/nav_home" />
+
+    <item android:title="feed"
+        android:id="@+id/nav_feed"
+        android:icon="@drawable/feed"/>
+
+    <item android:title="create req"
+        android:icon="@drawable/plus"
+        android:id="@+id/nav_req"/>
+
+    <item android:title="messages"
+        android:icon="@drawable/message"
+        android:id="@+id/nav_message"/>
+
+
+
+</menu>

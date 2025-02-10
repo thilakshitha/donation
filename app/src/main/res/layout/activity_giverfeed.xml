@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".giverfeed">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="426dp"
+            android:layout_height="99dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/edittextbackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
+            app:layout_constraintVertical_bias="1.0"
+            app:menu="@menu/bottom_nav_menu1"
+            app:itemIconTint="@color/nav_item_color"
+            app:itemTextColor="@color/nav_item_color"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="24dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="78dp"
+                            android:layout_height="73dp"
+                            android:layout_marginEnd="233dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.367"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            app:srcCompat="@drawable/feed" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Donation requests(giver)"
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.487" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="206dp"
+                        android:layout_margin="1dp"
+                        android:background="@drawable/black_background_banner">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="49dp"
+                            android:layout_height="55dp"
+                            app:srcCompat="@drawable/profile"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="0dp" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="366dp"
+                            android:layout_height="134dp"
+                            android:text="John cena \n\n weight - 12kg\n location -  Kottawa/colombo\n pax - 6 person(family) "
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.222" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="53dp"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="283dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="26dp"
+                            android:layout_marginBottom="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:srcCompat="@drawable/message" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="47dp"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="32dp"
+                            android:layout_marginBottom="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:srcCompat="@drawable/phone" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="206dp"
+                        android:layout_margin="1dp"
+                        android:background="@drawable/black_background_banner">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="49dp"
+                            android:layout_height="55dp"
+                            app:srcCompat="@drawable/profile"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="0dp" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="366dp"
+                            android:layout_height="134dp"
+                            android:text="John cena \n\n weight - 12kg\n location -  Kottawa/colombo\n pax - 6 person(family) "
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.222" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="53dp"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="283dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="26dp"
+                            android:layout_marginBottom="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:srcCompat="@drawable/message" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="47dp"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="32dp"
+                            android:layout_marginBottom="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:srcCompat="@drawable/phone" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="206dp"
+                        android:layout_margin="1dp"
+                        android:background="@drawable/black_background_banner">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="49dp"
+                            android:layout_height="55dp"
+                            app:srcCompat="@drawable/profile"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="0dp" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="366dp"
+                            android:layout_height="134dp"
+                            android:text="John cena \n\n weight - 12kg\n location -  Kottawa/colombo\n pax - 6 person(family) "
+                            android:textColor="@color/white"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.222" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="53dp"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="283dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="26dp"
+                            android:layout_marginBottom="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:srcCompat="@drawable/message" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="47dp"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="32dp"
+                            android:layout_marginBottom="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView16"
+                            app:srcCompat="@drawable/phone" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
