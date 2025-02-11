@@ -13,10 +13,10 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="signup">
+      <SelectionState runConfigName="Signup">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="Signup">
+      <SelectionState runConfigName="editprofile">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

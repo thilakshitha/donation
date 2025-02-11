@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class start extends AppCompatActivity {
     private ImageView move1;
+    private ImageView move2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (getSupportActionBar()!=null){
@@ -30,6 +31,14 @@ public class start extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent( start.this,welcomepage.class);
+                startActivity(intent);
+            }
+        });
+        move2=findViewById(R.id.imageView28);
+        move2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent( start.this,editprofile.class);
                 startActivity(intent);
             }
         });
