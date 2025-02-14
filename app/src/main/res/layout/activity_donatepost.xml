@@ -63,7 +63,7 @@
             android:layout_height="105dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="44dp"
-            android:text="Make a \n donatio post"
+            android:text="Make a \n donation post"
             android:textColor="@color/white"
 
             android:textSize="40sp"

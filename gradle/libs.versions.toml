@@ -18,6 +18,8 @@ firebaseAnalytics = "22.2.0"
 comGoogleGmsGoogleServicesGradlePlugin = "4.4.2"
 firebaseAuthVersion = "23.2.0"
 firebaseFirestoreVersion = "25.1.2"
+recyclerview = "1.4.0"
+recyclerviewVersion = "1.2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -37,6 +39,8 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 com-google-gms-google-services-gradle-plugin = { group = "com.google.gms.google-services", name = "com.google.gms.google-services.gradle.plugin", version.ref = "comGoogleGmsGoogleServicesGradlePlugin" }
 google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuthVersion" }
 google-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestoreVersion" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerviewVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

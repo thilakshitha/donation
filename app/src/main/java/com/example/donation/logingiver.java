@@ -76,7 +76,7 @@ public class logingiver extends AppCompatActivity {
                         if (!querySnapshot.isEmpty()) {
                             // Login successful
                             Toast.makeText(logingiver.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(logingiver.this, start.class); // Change to your next activity
+                            Intent intent = new Intent(logingiver.this, homegiver.class); // Change to your next activity
                             startActivity(intent);
                             finish();
                         } else {
