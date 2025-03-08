@@ -13,8 +13,23 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:targetApi="34">
         <activity
-            android:name=".user_item"
+            android:name=".historyGiver"
             android:exported="false" />
+        <activity
+            android:name=".history"
+            android:exported="false" />
+        <activity
+            android:name=".DonationHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".welcomepage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".editprofile"
             android:exported="false" />
@@ -25,14 +40,11 @@
             android:name=".signupGiver"
             android:exported="true" />
         <activity
-            android:name=".welcomepage"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".user_item_donate"
+            android:exported="false" />
+        <activity
+            android:name=".user_item"
+            android:exported="false" />
         <activity
             android:name=".giverfeed"
             android:exported="false" />
@@ -68,6 +80,9 @@
             android:exported="true" />
         <activity
             android:name=".start"
+            android:exported="true" />
+        <activity
+            android:name=".editprofilegiver"
             android:exported="true" />
     </application>
 

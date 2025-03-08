@@ -3,12 +3,13 @@ package com.example.donation;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -20,35 +21,37 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class giverfeed extends AppCompatActivity {
+public class historyGiver extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
+    private UserAdapter3 userAdapter;
     private List<User> userList;
     private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_giverfeed);
+        setContentView(R.layout.activity_history_giver);
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         userList = new ArrayList<>();
-        userAdapter = new UserAdapter(this, userList);
+        userAdapter = new UserAdapter3(this, userList);
         recyclerView.setAdapter(userAdapter);
 
         db = FirebaseFirestore.getInstance();
         fetchUsersFromFirestore();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.nav_feed);
-
-        if (getSupportActionBar()!=null){
+        // Hide ActionBar if available
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        // Bottom Navigation Setup
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_feed);
+        // Set Home as selected
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -71,24 +74,34 @@ public class giverfeed extends AppCompatActivity {
             }
             return false;
         });
+
     }
+
     private void fetchUsersFromFirestore() {
-        db.collection("request post")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            return;
-                        }
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                        userList.clear();
-                        for (QueryDocumentSnapshot document : value) {
-                            User user = document.toObject(User.class);
-                            userList.add(user);
-                        }
+        if (currentUser != null) {
+            String userID = currentUser.getUid(); // Get logged-in user's ID
 
-                        userAdapter.notifyDataSetChanged();
-                    }
-                });
+            db.collection("donate post")
+                    .whereEqualTo("userID", userID) // Filter by logged-in user's userID
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                return;
+                            }
+
+                            userList.clear();
+                            for (QueryDocumentSnapshot document : value) {
+                                User user = document.toObject(User.class);
+                                userList.add(user);
+                            }
+
+                            userAdapter.notifyDataSetChanged();
+                        }
+                    });
+        }
     }
+
 }

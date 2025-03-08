@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,18 +19,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class editprofile extends AppCompatActivity {
+public class editprofilegiver extends AppCompatActivity {
 
     private EditText editTextName, editTextEmail, editTextPassword, editTextPhone;
     private Button buttonUpdateProfile;
     private FirebaseFirestore db;
     private String userId;
     private FirebaseAuth auth;
+
+
     private Button cancel;
-    private Button deleteProfileButton1;
+    private Button deleteProfileButton;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -40,13 +40,16 @@ public class editprofile extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_editprofile);
+        setContentView(R.layout.activity_editprofilegiver);
 
         sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
         // Initialize Firestore and FirebaseAuth
         db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         if (user != null) {
             userId = user.getUid();
@@ -65,12 +68,11 @@ public class editprofile extends AppCompatActivity {
 
         cancel = findViewById(R.id.button3);
         cancel.setOnClickListener(v -> {
-            Intent intent = new Intent(editprofile.this, start.class);
+            Intent intent = new Intent(editprofilegiver.this, homegiver.class);
             startActivity(intent);
         });
-
-        deleteProfileButton1 = findViewById(R.id.button8);
-        deleteProfileButton1.setOnClickListener(v -> {
+        deleteProfileButton = findViewById(R.id.button7);
+        deleteProfileButton.setOnClickListener(v -> {
             deleteUserProfile();
         });
 
@@ -80,17 +82,15 @@ public class editprofile extends AppCompatActivity {
         // Set update button click listener
         buttonUpdateProfile.setOnClickListener(view -> updateUserProfile());
     }
-    private void deleteUserProfile() {
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
 
+    private void deleteUserProfile() {
+        FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
             String userId = user.getUid();
 
-
             // Delete user data from Firestore (Example: Users Collection)
-            db.collection("users needy").document(userId)
+            db.collection("givers").document(userId)
                     .delete()
                     .addOnSuccessListener(aVoid -> {
                         Log.d("DeleteProfile", "User data deleted from Firestore");
@@ -99,7 +99,7 @@ public class editprofile extends AppCompatActivity {
                         user.delete()
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(editprofile.this, "Profile Deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(editprofilegiver.this, "Profile Deleted", Toast.LENGTH_SHORT).show();
 
                                         // Redirect to Login Screen
                                         FirebaseAuth.getInstance().signOut();
@@ -110,21 +110,22 @@ public class editprofile extends AppCompatActivity {
                                         editor.apply();
 
                                         // Redirect to the login activity after logout
-                                        Intent intent = new Intent(editprofile.this, welcomepage.class);
+                                        Intent intent = new Intent(editprofilegiver.this, welcomepage.class);
                                         startActivity(intent);
                                         finish();  // Close the current activity
                                     } else {
-                                        Toast.makeText(editprofile.this, "Failed to delete user: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(editprofilegiver.this, "Failed to delete user: " + task.getException(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     })
                     .addOnFailureListener(e -> {
-                        Toast.makeText(editprofile.this, "Failed to delete Firestore data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(editprofilegiver.this, "Failed to delete Firestore data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void loadUserData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -135,7 +136,7 @@ public class editprofile extends AppCompatActivity {
             editTextEmail.setText(email);
 
             // Fetch the user's other details from Firestore
-            db.collection("users needy").document(userId)
+            db.collection("givers").document(userId)
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
@@ -149,7 +150,7 @@ public class editprofile extends AppCompatActivity {
                             editTextPhone.setText(phone);
                         }
                     })
-                    .addOnFailureListener(e -> Toast.makeText(editprofile.this, "Failed to load data", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(editprofilegiver.this, "Failed to load data", Toast.LENGTH_SHORT).show());
         }
     }
 
@@ -168,14 +169,14 @@ public class editprofile extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null && !newEmail.equals(user.getEmail())) {
             user.updateEmail(newEmail)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(editprofile.this, "Email updated", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(editprofile.this, "Failed to update email", Toast.LENGTH_SHORT).show());
+                    .addOnSuccessListener(aVoid -> Toast.makeText(editprofilegiver.this, "Email updated", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(editprofilegiver.this, "Failed to update email", Toast.LENGTH_SHORT).show());
         }
 
         if (user != null && !newPassword.equals("")) {
             user.updatePassword(newPassword)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(editprofile.this, "Password updated", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(editprofile.this, "Failed to update password", Toast.LENGTH_SHORT).show());
+                    .addOnSuccessListener(aVoid -> Toast.makeText(editprofilegiver.this, "Password updated", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e -> Toast.makeText(editprofilegiver.this, "Failed to update password", Toast.LENGTH_SHORT).show());
         }
 
         // Create a map with updated user data
@@ -186,9 +187,9 @@ public class editprofile extends AppCompatActivity {
         updatedData.put("mobile no", newPhone);
 
         // Update user data in Firestore
-        db.collection("users needy").document(userId)
+        db.collection("givers").document(userId)
                 .update(updatedData)
-                .addOnSuccessListener(aVoid -> Toast.makeText(editprofile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(editprofile.this, "Failed to update profile", Toast.LENGTH_SHORT).show());
+                .addOnSuccessListener(aVoid -> Toast.makeText(editprofilegiver.this, "Profile updated successfully", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(editprofilegiver.this, "Failed to update profile", Toast.LENGTH_SHORT).show());
     }
 }

@@ -1,6 +1,8 @@
 package com.example.donation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,19 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class login extends AppCompatActivity {
 
-    private TextView move2;
     private EditText loginEmail, loginPassword;
     private Button loginButton;
-    private FirebaseFirestore db;
+    private TextView move2;
+    private FirebaseAuth mAuth;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,58 +29,71 @@ public class login extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+
+        // Check if user is already logged in
+        if (isUserLoggedIn()) {
+            redirectToHome();
+        }
+
         loginEmail = findViewById(R.id.editTextText1);
         loginPassword = findViewById(R.id.editTextText2);
         loginButton = findViewById(R.id.button3);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = loginEmail.getText().toString().trim();
-                String pass = loginPassword.getText().toString().trim();
+        loginButton.setOnClickListener(v -> {
+            String email = loginEmail.getText().toString().trim();
+            String password = loginPassword.getText().toString().trim();
 
-                if (!email.isEmpty() && !pass.isEmpty()) {
-                    authenticateUser(email, pass);
-                } else {
-                    Toast.makeText(login.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-                }
+            if (!email.isEmpty() && !password.isEmpty()) {
+                authenticateUser(email, password);
+            } else {
+                Toast.makeText(login.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             }
         });
 
         move2 = findViewById(R.id.textView11);
-        move2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(login.this, Signup.class);
-                startActivity(intent);
-            }
+        move2.setOnClickListener(v -> {
+            Intent intent = new Intent(login.this, Signup.class);
+            startActivity(intent);
         });
     }
 
     private void authenticateUser(String email, String password) {
-        db.collection("users needy")
-                .whereEqualTo("email", email)
-                .whereEqualTo("password", password)
-                .get()
-                .addOnCompleteListener(task -> {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        QuerySnapshot querySnapshot = task.getResult();
-                        if (!querySnapshot.isEmpty()) {
-                            // Login successful
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            saveUserSession(user.getUid());  // Save session
                             Toast.makeText(login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(login.this, start.class); // Change to your next activity
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(login.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                            redirectToHome();
                         }
                     } else {
-                        Toast.makeText(login.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(login.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    private void saveUserSession(String userId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("USER_ID", userId);
+        editor.putBoolean("IS_LOGGED_IN", true);
+        editor.apply();
+    }
+
+    private boolean isUserLoggedIn() {
+        return sharedPreferences.getBoolean("IS_LOGGED_IN", false);
+    }
+
+    private void redirectToHome() {
+        Intent intent = new Intent(login.this, start.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
 }
